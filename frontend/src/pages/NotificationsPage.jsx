@@ -23,9 +23,9 @@ const NotificationsPage = () => {
   const acceptedRequests = friendRequests?.acceptedReqs || [];
 
   return (
-    <div className="p-4 sm:p-6 lg:p-8">
-      <div className="container mx-auto max-w-4xl space-y-8">
-        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6">Notifications</h1>
+    <div className="h-full overflow-y-auto">
+      <div className="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8">
+        <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight">Notifications</h1>
 
         {isLoading ? (
           <div className="flex justify-center py-12">
@@ -35,31 +35,33 @@ const NotificationsPage = () => {
           <>
             {incomingRequests.length > 0 && (
               <section className="space-y-4">
-                <h2 className="text-xl font-semibold flex items-center gap-2">
+                <h2 className="text-lg sm:text-xl font-semibold flex items-center gap-2">
                   <UserCheckIcon className="h-5 w-5 text-primary" />
                   Friend Requests
-                  <span className="badge badge-primary ml-2">{incomingRequests.length}</span>
+                  <span className="badge badge-primary badge-sm sm:badge-md">{incomingRequests.length}</span>
                 </h2>
 
                 <div className="space-y-3">
                   {incomingRequests.map((request) => (
                     <div
                       key={request._id}
-                      className="card bg-base-200 shadow-sm hover:shadow-md transition-shadow"
+                      className="card bg-base-200 shadow-sm hover:shadow-md transition-all duration-200"
                     >
-                      <div className="card-body p-4">
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-3">
-                            <div className="avatar w-14 h-14 rounded-full bg-base-300">
-                              <img src={request.sender.profilePic} alt={request.sender.fullName} />
+                      <div className="card-body p-3 sm:p-4">
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:justify-between">
+                          <div className="flex items-center gap-3 flex-1 min-w-0">
+                            <div className="avatar flex-shrink-0">
+                              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full">
+                                <img src={request.sender.profilePic} alt={request.sender.fullName} />
+                              </div>
                             </div>
-                            <div>
-                              <h3 className="font-semibold">{request.sender.fullName}</h3>
+                            <div className="min-w-0">
+                              <h3 className="font-semibold text-sm sm:text-base truncate">{request.sender.fullName}</h3>
                               <div className="flex flex-wrap gap-1.5 mt-1">
-                                <span className="badge badge-secondary badge-sm">
+                                <span className="badge badge-secondary badge-xs sm:badge-sm">
                                   Native: {request.sender.nativeLanguage}
                                 </span>
-                                <span className="badge badge-outline badge-sm">
+                                <span className="badge badge-outline badge-xs sm:badge-sm">
                                   Learning: {request.sender.learningLanguage}
                                 </span>
                               </div>
@@ -67,7 +69,7 @@ const NotificationsPage = () => {
                           </div>
 
                           <button
-                            className="btn btn-primary btn-sm"
+                            className="btn btn-primary btn-sm w-full sm:w-auto flex-shrink-0"
                             onClick={() => acceptRequestMutation(request._id)}
                             disabled={isPending}
                           >
@@ -84,7 +86,7 @@ const NotificationsPage = () => {
             {/* ACCEPTED REQS NOTIFICATONS */}
             {acceptedRequests.length > 0 && (
               <section className="space-y-4">
-                <h2 className="text-xl font-semibold flex items-center gap-2">
+                <h2 className="text-lg sm:text-xl font-semibold flex items-center gap-2">
                   <BellIcon className="h-5 w-5 text-success" />
                   New Connections
                 </h2>
@@ -92,7 +94,7 @@ const NotificationsPage = () => {
                 <div className="space-y-3">
                   {acceptedRequests.map((notification) => (
                     <div key={notification._id} className="card bg-base-200 shadow-sm">
-                      <div className="card-body p-4">
+                      <div className="card-body p-3 sm:p-4">
                         <div className="flex items-start gap-3">
                           <div className="avatar mt-1 size-10 rounded-full">
                             <img
