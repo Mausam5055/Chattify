@@ -33,7 +33,7 @@ Chattify is a modern real-time chat application built with React, Node.js, and M
 
 ### High-Level Architecture
 
-```
+```mermaid
 graph TB
     A[Client - React Frontend] --> B[API Gateway]
     B --> C[Auth Service]
@@ -103,7 +103,7 @@ Chattify/
 
 ### 1. User Authentication Flow
 
-```
+```mermaid
 sequenceDiagram
     participant U as User
     participant F as Frontend
@@ -122,7 +122,7 @@ sequenceDiagram
 
 ### 2. Chat Initialization Flow
 
-```
+```mermaid
 sequenceDiagram
     participant U as User
     participant F as Frontend
@@ -141,7 +141,7 @@ sequenceDiagram
 
 ### 3. Video Call Flow
 
-```
+```mermaid
 sequenceDiagram
     participant CU as Calling User
     participant RU as Receiving User
