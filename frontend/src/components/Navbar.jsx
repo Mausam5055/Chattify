@@ -1,4 +1,4 @@
-import { Link, useLocation, useParams, useNavigate } from "react-router";
+import { Link, useLocation, useParams } from "react-router";
 import useAuthUser from "../hooks/useAuthUser";
 import { BellIcon, LogOutIcon, ShipWheelIcon, VideoIcon } from "lucide-react";
 import ThemeSelector from "./ThemeSelector";
@@ -11,7 +11,6 @@ import toast from "react-hot-toast";
 const Navbar = () => {
   const { authUser } = useAuthUser();
   const location = useLocation();
-  const navigate = useNavigate();
   const { id: targetUserId } = useParams();
   
   const isChatPage = location.pathname?.startsWith("/chat");
@@ -60,11 +59,8 @@ const Navbar = () => {
       await channel.sendMessage({
         text: `I've started a video call. Join me here: ${callUrl}`,
       });
-
-      // Navigate to the call page
-      navigate(`/call/${channel.id}`);
       
-      toast.success("Video call started successfully!");
+      toast.success("Video call link sent successfully!");
     } catch (error) {
       console.error("Error starting video call:", error);
       toast.error("Unable to start video call. Please try again.");
