@@ -6,9 +6,6 @@
 [![MongoDB](https://img.shields.io/badge/mongodb-%5E6.0.0-blue.svg)](https://www.mongodb.com/)
 [![Render](https://img.shields.io/badge/deployment-render-brightgreen.svg)](https://render.com/)
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/streamich/stream-chat-react/master/src/assets/logo.svg" alt="Chattify Logo" width="200">
-</p>
 
 <p align="center">
   <img src="frontend/public/preview-1.png" alt="Chattify Preview 1" width="250">
