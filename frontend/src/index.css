@@ -72,3 +72,32 @@
 .str-chat__thread {
   height: 100%;
 }
+
+/* Mobile keyboard handling */
+@media (max-width: 768px) {
+  .str-chat__input-flat {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 9999 !important;
+    background: white !important;
+    padding-bottom: env(safe-area-inset-bottom) !important;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1) !important;
+  }
+  
+  /* Add padding to bottom of message list when keyboard is open */
+  .str-chat__list {
+    padding-bottom: 80px !important;
+  }
+  
+  /* When input is focused, add extra padding */
+  .str-chat__input-flat:focus-within {
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1) !important;
+  }
+}
+
+/* Ensure message input is visible on mobile */
+.str-chat__input-flat {
+  z-index: 50 !important;
+}

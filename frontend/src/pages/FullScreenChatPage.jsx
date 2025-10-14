@@ -109,8 +109,8 @@ const FullScreenChatPage = () => {
 
   return (
     <div className="h-screen flex flex-col">
-      {/* Unified Navbar for both mobile and desktop */}
-      <nav className="bg-base-200 border-b border-base-300 z-30 h-16 flex items-center flex-shrink-0">
+      {/* Unified Navbar for both mobile and desktop - fixed at top */}
+      <nav className="bg-base-200 border-b border-base-300 z-30 h-16 flex items-center flex-shrink-0 fixed top-0 left-0 right-0">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between w-full">
             <div className="flex items-center gap-2">
@@ -177,8 +177,8 @@ const FullScreenChatPage = () => {
         </div>
       </nav>
 
-      {/* Chat Content - Full Screen */}
-      <div className="flex-1 overflow-hidden">
+      {/* Chat Content - Full Screen with padding to account for fixed navbars */}
+      <div className="flex-1 overflow-hidden pt-16">
         <Chat client={chatClient} customClasses={{}}>
           <Channel channel={channel}>
             <div className="w-full h-full flex flex-col">
@@ -188,12 +188,15 @@ const FullScreenChatPage = () => {
                   className="flex-shrink-0"
                 />
                 <MessageList 
-                  className="flex-1 overflow-y-auto"
+                  className="flex-1 overflow-y-auto pb-20"
                 />
-                <MessageInput 
-                  focus 
-                  className="flex-shrink-0"
-                />
+                {/* Fixed message input at bottom that goes over keypad */}
+                <div className="fixed bottom-0 left-0 right-0 z-50">
+                  <MessageInput 
+                    focus 
+                    className="flex-shrink-0"
+                  />
+                </div>
               </Window>
               
               <Thread />
