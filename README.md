@@ -10,6 +10,12 @@
   <img src="https://raw.githubusercontent.com/streamich/stream-chat-react/master/src/assets/logo.svg" alt="Chattify Logo" width="200">
 </p>
 
+<p align="center">
+  <img src="frontend/public/preview-1.png" alt="Chattify Preview 1" width="250">
+  <img src="frontend/public/preview-2.png" alt="Chattify Preview 2" width="250">
+  <img src="frontend/public/preview-3.png" alt="Chattify Preview 3" width="250">
+</p>
+
 Chattify is a modern real-time chat application built with React, Node.js, and MongoDB. It features user authentication, friend management, real-time messaging with Stream Chat API, and video calling capabilities.
 
 ## 🌟 Features
@@ -27,7 +33,7 @@ Chattify is a modern real-time chat application built with React, Node.js, and M
 
 ### High-Level Architecture
 
-```mermaid
+```
 graph TB
     A[Client - React Frontend] --> B[API Gateway]
     B --> C[Auth Service]
@@ -97,7 +103,7 @@ Chattify/
 
 ### 1. User Authentication Flow
 
-```mermaid
+```
 sequenceDiagram
     participant U as User
     participant F as Frontend
@@ -116,7 +122,7 @@ sequenceDiagram
 
 ### 2. Chat Initialization Flow
 
-```mermaid
+```
 sequenceDiagram
     participant U as User
     participant F as Frontend
@@ -135,7 +141,7 @@ sequenceDiagram
 
 ### 3. Video Call Flow
 
-```mermaid
+```
 sequenceDiagram
     participant CU as Calling User
     participant RU as Receiving User
