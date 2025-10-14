@@ -24,8 +24,8 @@ Highlights:
 ```
 PORT=5001
 MONGO_URI=your_mongo_uri
-STEAM_API_KEY=your_steam_api_key
-STEAM_API_SECRET=your_steam_api_secret
+STREAM_API_KEY=your_stream_api_key
+STREAM_API_SECRET=your_stream_api_secret
 JWT_SECRET_KEY=your_jwt_secret
 NODE_ENV=development
 ```
@@ -33,6 +33,7 @@ NODE_ENV=development
 ### Frontend (`/frontend`)
 
 ```
+VITE_API_BASE_URL=/api
 VITE_STREAM_API_KEY=your_stream_api_key
 ```
 
@@ -53,3 +54,14 @@ cd frontend
 npm install
 npm run dev
 ```
+
+## ☁️ Deployment
+
+### Deploying to Render
+
+1. Create a new Web Service on Render
+2. Connect your GitHub repository
+3. Set the build command to: `npm run build`
+4. Set the start command to: `npm start`
+5. Add environment variables as needed
+6. The `render.yaml` file will automatically configure your deployment
