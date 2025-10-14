@@ -7,7 +7,21 @@ export default defineConfig({
   base: './',
   build: {
     rollupOptions: {
-      external: []
-    }
+      external: [],
+      output: {
+        manualChunks: undefined,
+      }
+    },
+    target: 'esnext',
+    outDir: 'dist',
+    assetsDir: 'assets',
+    emptyOutDir: true
+  },
+  optimizeDeps: {
+    exclude: ['@rollup/rollup-linux-x64-gnu']
+  },
+  server: {
+    host: true,
+    port: 5173
   }
 })
