@@ -1,13 +1,26 @@
-import { Link, useLocation } from "react-router";
+import { Link, useLocation, useParams, useNavigate } from "react-router";
 import useAuthUser from "../hooks/useAuthUser";
-import { BellIcon, LogOutIcon, ShipWheelIcon } from "lucide-react";
+import { BellIcon, LogOutIcon, ShipWheelIcon, VideoIcon } from "lucide-react";
 import ThemeSelector from "./ThemeSelector";
 import useLogout from "../hooks/useLogout";
+import { useQuery } from "@tanstack/react-query";
+import { getStreamToken } from "../lib/api";
+import { StreamChat } from "stream-chat";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
   const { authUser } = useAuthUser();
   const location = useLocation();
+  const navigate = useNavigate();
+  const { id: targetUserId } = useParams();
+  
   const isChatPage = location.pathname?.startsWith("/chat");
+
+  const { data: tokenData } = useQuery({
+    queryKey: ["streamToken"],
+    queryFn: getStreamToken,
+    enabled: !!authUser && isChatPage,
+  });
 
   // const queryClient = useQueryClient();
   // const { mutate: logoutMutation } = useMutation({
@@ -16,6 +29,47 @@ const Navbar = () => {
   // });
 
   const { logoutMutation } = useLogout();
+
+  const handleVideoCall = async () => {
+    if (!tokenData?.token || !authUser || !targetUserId) {
+      toast.error("Unable to start video call. Please try again.");
+      return;
+    }
+
+    try {
+      const STREAM_API_KEY = import.meta.env.VITE_STREAM_API_KEY;
+      const client = StreamChat.getInstance(STREAM_API_KEY);
+
+      await client.connectUser(
+        {
+          id: authUser._id,
+          name: authUser.fullName,
+          image: authUser.profilePic,
+        },
+        tokenData.token
+      );
+
+      const channelId = [authUser._id, targetUserId].sort().join("-");
+      const channel = client.channel("messaging", channelId, {
+        members: [authUser._id, targetUserId],
+      });
+
+      await channel.watch();
+
+      const callUrl = `${window.location.origin}/call/${channel.id}`;
+      await channel.sendMessage({
+        text: `I've started a video call. Join me here: ${callUrl}`,
+      });
+
+      // Navigate to the call page
+      navigate(`/call/${channel.id}`);
+      
+      toast.success("Video call started successfully!");
+    } catch (error) {
+      console.error("Error starting video call:", error);
+      toast.error("Unable to start video call. Please try again.");
+    }
+  };
 
   return (
     <nav className="bg-base-200 border-b border-base-300 z-30 h-16 flex items-center flex-shrink-0">
@@ -31,6 +85,15 @@ const Navbar = () => {
           )}
 
           <div className="flex items-center gap-2 sm:gap-3 ml-auto">
+            {isChatPage && (
+              <button 
+                onClick={handleVideoCall}
+                className="btn btn-primary btn-sm btn-circle"
+                aria-label="Start video call"
+              >
+                <VideoIcon className="h-5 w-5" />
+              </button>
+            )}
             {!isChatPage && (
               <Link to="/notifications">
                 <button className="btn btn-ghost btn-sm btn-circle">
