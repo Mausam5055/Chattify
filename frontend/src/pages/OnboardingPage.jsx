@@ -3,7 +3,7 @@ import useAuthUser from "../hooks/useAuthUser";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { completeOnboarding } from "../lib/api";
-import { Camera as CameraIcon, LoaderIcon, MapPinIcon, ShipWheelIcon, ShuffleIcon } from "lucide-react";
+import { LoaderIcon, MapPinIcon, ShipWheelIcon, ShuffleIcon } from "lucide-react";
 import { LANGUAGES } from "../constants";
 
 const OnboardingPage = () => {
@@ -46,15 +46,16 @@ const OnboardingPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-base-100 flex items-center justify-center p-4 sm:p-6">
-      <div className="card bg-base-200 w-full max-w-3xl shadow-2xl">
-        <div className="card-body p-6 sm:p-8 md:p-10">
-          <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-center mb-6">Complete Your Profile</h1>
+    <div className="min-h-screen bg-base-100 flex items-center justify-center p-4">
+      <div className="card bg-base-200 w-full max-w-3xl shadow-xl">
+        <div className="card-body p-6 sm:p-8">
+          <h1 className="text-2xl sm:text-3xl font-bold text-center mb-6">Complete Your Profile</h1>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* PROFILE PIC CONTAINER */}
             <div className="flex flex-col items-center justify-center space-y-4">
-              <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-full bg-base-300 overflow-hidden">
+              {/* IMAGE PREVIEW */}
+              <div className="size-32 rounded-full bg-base-300 overflow-hidden">
                 {formState.profilePic ? (
                   <img
                     src={formState.profilePic}
@@ -68,11 +69,11 @@ const OnboardingPage = () => {
                 )}
               </div>
 
+              {/* Generate Random Avatar BTN */}
               <div className="flex items-center gap-2">
-                <button type="button" onClick={handleRandomAvatar} className="btn btn-accent btn-sm sm:btn-md">
+                <button type="button" onClick={handleRandomAvatar} className="btn btn-accent">
                   <ShuffleIcon className="size-4 mr-2" />
-                  <span className="hidden sm:inline">Generate Random Avatar</span>
-                  <span className="sm:hidden">Random Avatar</span>
+                  Generate Random Avatar
                 </button>
               </div>
             </div>
